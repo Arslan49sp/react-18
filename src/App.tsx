@@ -1,5 +1,5 @@
-import Message from "./Message";
 import ListGroup from "./components/ListGroup";
+import Alert from "./components/Alert";
 
 function App() {
   const items = ["Lahore", "Karachi", "Islamabad", "Rawalpindi", "Faisalabad"];
@@ -11,6 +11,9 @@ function App() {
         heading="cities"
         onSelectItem={handleSelectItem}
       />
+      <Alert>
+        Hello <span>World</span>
+      </Alert>
     </div>
   );
 }
