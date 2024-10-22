@@ -1,8 +1,12 @@
-import LIke from "./components/LIke";
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Cart from "./components/Cart";
 function App() {
+  const [cartItems, setCartItems] = useState(["Condoms", "Delay Spray"]);
   return (
     <div>
-      <LIke onClick={() => console.log("Clicked")} />
+      <Navbar cartItemCount={cartItems.length} />
+      <Cart cartItems={cartItems} onClear={() => setCartItems([])} />
     </div>
   );
 }
