@@ -1,33 +1,22 @@
 import { useState } from "react";
+import ExpandedText from "./components/ExpandedText";
 
 function App() {
-  const [cart, setCart] = useState({
-    discount: 0.1,
-    items: [
-      { id: 1, title: "Product 1", quantity: 1 },
-      { id: 2, title: "Product 2", quantity: 1 },
-    ],
-  });
-
-  const handleClick = () => {
-    setCart({
-      ...cart,
-      items: cart.items.map((item) =>
-        item.id === 1 ? { ...item, quantity: item.quantity + 1 } : item
-      ),
-    });
-  };
   return (
     <div>
-      {cart.discount}
-      <ul>
-        {cart.items.map((item) => (
-          <li key={item.id}>
-            {item.title} {item.quantity}
-          </li>
-        ))}
-      </ul>
-      <button onClick={handleClick}>+</button>
+      <ExpandedText>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
+        nesciunt, praesentium, delectus amet veniam ratione iure soluta impedit
+        esse ipsam voluptatem facere sed, distinctio ex veritatis cum fuga
+        dolorum explicabo provident harum autem est velit. Aliquid tempore
+        consequuntur dignissimos, quisquam molestiae dolores nulla iusto, natus
+        mollitia in quasi provident consequatur nemo officiis perspiciatis sed
+        optio architecto! Porro officiis qui eos repudiandae dolores repellendus
+        quibusdam amet ex culpa iste ullam, fuga ratione sunt facere dolorum
+        nihil! Odit est officia commodi aliquam sit cumque, ullam dicta corporis
+        delectus iusto vitae? Tempore soluta nostrum saepe temporibus vero
+        doloremque, distinctio accusantium quos quia perspiciatis?
+      </ExpandedText>
     </div>
   );
 }
