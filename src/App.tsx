@@ -6,11 +6,7 @@ import ExpenseForm from "./expense-tracker/components/ExpenseForm";
 function App() {
   const [changeCategory, setChangeCategory] = useState("");
   const [expenses, setExpenses] = useState([
-    { id: 1, description: "aaa", amount: 10, category: "Electronics" },
-    { id: 2, description: "bbb", amount: 10, category: "Groceries" },
-    { id: 3, description: "ccc", amount: 10, category: "Electronics" },
-    { id: 4, description: "ddd", amount: 10, category: "Electronics" },
-    { id: 5, description: "eee", amount: 10, category: "Electronics" },
+    { id: 2, description: "Milk", amount: 10, category: "Groceries" },
   ]);
 
   const visibleExpenses = changeCategory
@@ -19,7 +15,11 @@ function App() {
   return (
     <div>
       <div className="mb-5">
-        <ExpenseForm />
+        <ExpenseForm
+          onSubmit={(expense) =>
+            setExpenses([...expenses, { ...expense, id: expenses.length + 1 }])
+          }
+        />
       </div>
       <div className="mb-3">
         <ExpenseFilter onSelect={(category) => setChangeCategory(category)} />

@@ -12,20 +12,31 @@ const schema = z.object({
     .number({ invalid_type_error: "Enter the amount" })
     .min(0.01)
     .max(1000),
-  categories: z.enum(categories, {
+  category: z.enum(categories, {
     errorMap: () => ({ message: "Category is required" }),
   }),
 });
 
 type ExpenseFormData = z.infer<typeof schema>;
-const ExpenseForm = () => {
+
+interface Props {
+  onSubmit: (data: ExpenseFormData) => void;
+}
+const ExpenseForm = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ExpenseFormData>({ resolver: zodResolver(schema) });
   return (
-    <form onSubmit={handleSubmit((data) => console.log(data))} className="w-50">
+    <form
+      onSubmit={handleSubmit((data) => {
+        onSubmit(data);
+        reset();
+      })}
+      className="w-50"
+    >
       <div className="mb-3">
         <label htmlFor="description" className="form-label">
           Description
@@ -55,24 +66,24 @@ const ExpenseForm = () => {
         )}
       </div>
       <div className="mb-3">
-        <label htmlFor="categories" className="form-label">
+        <label htmlFor="category" className="form-label">
           Category
         </label>
         <select
-          {...register("categories")}
-          name=""
-          id="categories"
+          {...register("category")}
+          name="category"
+          id="category"
           className="form-select"
         >
-          <option value="">Choose</option>
+          <option value=""></option>
           {categories.map((category) => (
             <option key={category} value={category}>
               {category}
             </option>
           ))}
         </select>
-        {errors.categories && (
-          <p className="text-danger">{errors.categories.message}</p>
+        {errors.category && (
+          <p className="text-danger">{errors.category.message}</p>
         )}
       </div>
       <button className="btn btn-primary">Submit</button>
