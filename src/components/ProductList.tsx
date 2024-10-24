@@ -5,7 +5,6 @@ interface Props {
 }
 const ProductList = ({ category }: Props) => {
   const [products, setProducts] = useState<string[]>([]);
-
   useEffect(() => {
     console.log("Fetching the products in " + category);
     setProducts(["chaddi", "bunyaan"]);
