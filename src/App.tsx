@@ -8,6 +8,19 @@ function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const addUser = () => {
+    const origionalUser = [...users];
+    const newUser = { id: 0, name: "Arslan Majeed" };
+    setUsers([newUser, ...users]);
+    axios
+      .post("https://jsonplaceholder.typicode.com/users", newUser)
+      .then(({ data: addedUser }) => setUsers([addedUser, ...users]))
+      .catch((err) => {
+        setError(err.message);
+        setUsers(origionalUser);
+      });
+  };
   const deleteUser = (user: User) => {
     const origionalUser = [...users];
     setUsers(users.filter((u) => u.id !== user.id));
@@ -41,6 +54,9 @@ function App() {
     <>
       {error && <p className="text-danger">{error}</p>}
       {isLoading && <div className="spinner-border"></div>}
+      <button className="btn btn-primary mb-3" onClick={() => addUser()}>
+        Add
+      </button>
       <ul className="list-group">
         {users.map((user) => (
           <li
