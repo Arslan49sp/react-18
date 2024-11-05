@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import apiClient, { CanceledError } from "./services/api-client";
 import userService, { User } from "./services/user-service";
+import useUsers from "./hooks/useUsers";
 function App() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
+  const { users, error, isLoading, setUsers, setError, setIsLoading } =
+    useUsers();
   const addUser = () => {
     const origionalUser = [...users];
     const newUser = { id: 0, name: "Arslan Majeed" };
@@ -37,22 +36,7 @@ function App() {
       setUsers(origionalUser);
     });
   };
-  useEffect(() => {
-    setIsLoading(true);
-    const { request, cancel } = userService.getAll<User>();
-    request
-      .then((res) => {
-        setUsers(res.data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-      });
 
-    return () => cancel();
-  }, []);
   return (
     <>
       {error && <p className="text-danger">{error}</p>}
