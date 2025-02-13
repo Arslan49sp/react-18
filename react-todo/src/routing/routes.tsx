@@ -4,6 +4,7 @@ import UserListPage from "./UserListPage";
 import ContactPage from "./ContactPage";
 import UserDetailPage from "./UserDetailPage";
 import Layout from "./Layout";
+import UserPage from "./UserPage";
 
 const routes = createBrowserRouter([
   {
@@ -12,8 +13,11 @@ const routes = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "contact", element: <ContactPage /> },
-      { path: "users", element: <UserListPage /> },
-      { path: "users/:id", element: <UserDetailPage /> },
+      {
+        path: "users",
+        element: <UserPage />,
+        children: [{ path: ":id", element: <UserDetailPage /> }],
+      },
     ],
   },
 ]);
